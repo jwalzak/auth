@@ -12,12 +12,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 var firebaseConfig = {
-  apiKey: "AIzaSyBDYJ1gUUZxbalS3mxpOLjg2sY_uBplNE0",
-  authDomain: "devlift-5e7a0.firebaseapp.com",
-  databaseURL: "https://devlift-5e7a0.firebaseio.com",
-  projectId: "devlift-5e7a0",
-  storageBucket: "",
-  messagingSenderId: "19953221779"
+  
 };
 
 @NgModule({
