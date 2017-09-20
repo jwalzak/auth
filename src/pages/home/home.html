@@ -17,7 +17,13 @@
     <button ion-button type="sumbit" block>Add Item</button>
   </form>
   <ion-list>
-    <ion-item class="text" *ngFor="let item of items | async">
+    <ion-list-header>
+      // TODO items
+    </ion-list-header>
+    <p>
+      Click item to remove
+    </p>
+    <ion-item class="text" (click)="showPrompt(item.$key)" *ngFor="let item of items | async">
         {{item.$value}}
     </ion-item>
   </ion-list>

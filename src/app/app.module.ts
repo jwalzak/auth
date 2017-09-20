@@ -13,7 +13,12 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Facebook } from '@ionic-native/facebook';
 
 var firebaseConfig = {
-    
+    apiKey: "AIzaSyBDYJ1gUUZxbalS3mxpOLjg2sY_uBplNE0",
+    authDomain: "devlift-5e7a0.firebaseapp.com",
+    databaseURL: "https://devlift-5e7a0.firebaseio.com",
+    projectId: "devlift-5e7a0",
+    storageBucket: "devlift-5e7a0.appspot.com",
+    messagingSenderId: "19953221779"
 
 };
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -22,17 +22,19 @@ export class HomePage {
   };
 
   constructor(public navCtrl: NavController, public afDB: AngularFireDatabase,
-    private  afAuth: AngularFireAuth, private fb: Facebook, private platform: Platform){
+              public alertCtrl: AlertController,
+              private  afAuth: AngularFireAuth, private fb: Facebook, 
+              private platform: Platform){
       afAuth.authState.subscribe((user: firebase.User) => {
         if(!user) {
-          this.displayName = `Login`;
+          this.displayName = `Please Login`;
           return;
         }
         this.displayName = `Hello ${user.displayName}`;
-        this.items = afDB.list(`/items`);
+        this.items = afDB.list(`/items/${user.uid}`);
       });
     }
-
+    
     signInWithFacebook() {
       if (this.platform.is('cordova')){
         return this.fb.login(['email', 'public_profile']).then(res => {
@@ -41,21 +43,45 @@ export class HomePage {
         })
       }
       else {
-      return this.afAuth.auth
+        return this.afAuth.auth
         .signInWithPopup(new firebase.auth.FacebookAuthProvider())
         .then(res => console.log(res));
       }
     }
-
+    
     signOut() {
-      this.afAuth.auth.signOut();
+      this.afAuth.auth.signOut();      
     }   
     
     addItem(value: string): void {
       this.items.push( this.todo.title);
     }
 
-    removeItem(key: string):void {
-      this.items.remove(key);
+    showPrompt(key: string) {
+      let prompt = this.alertCtrl.create({
+        title: 'Delete or Updte',
+        message: 'Delete or update your task',
+        inputs: [
+          {
+            name: 'Update',
+            placeholder: 'Update',
+          },
+        ],
+        buttons: [
+          {
+            text: 'Delete',
+            handler: data => {
+              this.items.remove(key);
+            }
+          },
+          {
+            text: 'Update',
+            handler: data => {
+              this.items.set(key, data.Update);
+            }
+          }
+        ]
+      });
+      prompt.present();
     }
 }
