@@ -59,7 +59,7 @@ export class HomePage {
 
     showPrompt(key: string) {
       let prompt = this.alertCtrl.create({
-        title: 'Delete or Updte',
+        title: 'Delete or Update',
         message: 'Delete or update your task',
         inputs: [
           {
